@@ -16,10 +16,10 @@ fn orientacion Base Traveler Plano Tinicio Tfin = (
 			-- Creación de un rayo
 			if( Base.pos.z > Plano.pos.z ) then
 			(
-				Rayo = ray Traveler.pos [0,0,-1]
+				Rayo = ray Base.pos [0,0,-1]
 			) else 
 			(
-				Rayo = ray Traveler.pos [0,0,1]
+				Rayo = ray Base.pos [0,0,1]
 			)
 			
 			-- Calculamos la colisión del rayo con el plano
@@ -27,7 +27,10 @@ fn orientacion Base Traveler Plano Tinicio Tfin = (
 			
 			-- Ajustamos la altura del Traveler en función de la colisión del Rayo
 			-- con el Plano
+			-- Si queremos que vaya por encima del plano:
 			Traveler.pos.z = Colision.pos.z + Traveler.radius
+			-- Si queremos que vaya por debajo del plano:
+			-- Traveler.pos.z = Colision.pos.z - Traveler.radius
 			
 			---------------------------------------------------------------------------------
 			-- 			Cálculo de la rotación										     --
@@ -38,7 +41,10 @@ fn orientacion Base Traveler Plano Tinicio Tfin = (
 			posAntes = ( at time (t - 1) Traveler.pos )
 			
 			-- Obtenemos el vector restando la posición actual menos la anterior
+			-- Para que rote en la dirección correcta por encima del plano:
 			direccion = Traveler.pos - posAntes
+			-- Para que rote en la dirección correcta por debajo del plano:
+			--direccion = posAntes - Traveler.pos
 			
 			-- Para encontrar el eje de rotación del Traveler, utilizamos el producto
 			-- vectorial
